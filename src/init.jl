@@ -1,7 +1,7 @@
 #
 # Cria o cabecalho com informacoes da malha para posterior adicao de vistas com saidas
 #
-# nome_arquivo -> string com o nome do arquivo a ser criado. Se já existe, é deletado
+# filename -> string com o nome do arquivo a ser criado. Se já existe, é deletado
 # nn -> número de nós
 # ne -> número de elementos
 # coord -> array com nn linhas e 2 ou 3 colunas, com as coordenadas x, y e z (opcional)
@@ -66,23 +66,22 @@
 # 93 125-node fourth order hexahedron (8 nodes associated with the vertices, 36 with the
 #    edges, 54 with the faces, 27 in the volume)
 #
-function Lgmsh_init(nome_arquivo::String,nn::T,ne::T,coord::Array{F},
-                   etype::Vector{T},connect::Array{T}) where {T,F}
+function Lgmsh_init(filename::String,nn::T,ne::T,coord::Array{F},
+                    etype::Vector{T},connect::Array{T}) where {T,F}
 
-    # Verifica se já existe o arquivo, se sim, remove
-    if isfile(nome_arquivo); rm(nome_arquivo); end
+    # If file exists, delete it
+    if isfile(filename); rm(filename); end
 
-    # Abre o arquivo para escrita
-    saida = open(nome_arquivo,"a")
+    # Open for writing
+    outp = open(filename,"a")
 
-    # Listas com os dados do gmsh
-    nos=[2;3;4;4;8;6;5;3;6;9;10;27;18;14;1;8;20;15;13;9;10;12;15;15;21;4;5;6;20;35;56;64;125]
+    # Map each element code to the number of nodes
+    nos = [2;3;4;4;8;6;5;3;6;9;10;27;18;14;1;8;20;15;13;9;10;12;15;15;21;4;5;6;20;35;56;64;125]
 
-    # length 
+    # length of previous list
     lnos = length(nos)
 
-    # Vamos verificar se temos 2 colunas em coord. Se for o caso, adicionamos
-    # uma coluna de zeros (z)
+    # If user provided just 2 columns in coord, we add a third row with zeros
     if size(coord,2)==2
         coord = [coord zeros(nn)] 
     end
@@ -90,35 +89,40 @@ function Lgmsh_init(nome_arquivo::String,nn::T,ne::T,coord::Array{F},
     # Assert that no information in etype is outside the bounds 1 and length(nos)
     minimum(etype)>=1 && maximum(etype)<=lnos || throw("Lgmsh_init::etype must be in [1,$lnos]")
 
-    # Cabecalho do gmsh
-    println(saida,"\$MeshFormat")
-    println(saida,"2.2 0 8")
-    println(saida,"\$EndMeshFormat")
+    #
+    # Header
+    #
+    println(outp,"\$MeshFormat")
+    println(outp,"2.2 0 8")
+    println(outp,"\$EndMeshFormat")
 
-    # Nodes
-    println(saida,"\$Nodes")
-    println(saida,nn)
+    #
+    # Nodes - coordinates
+    #
+    println(outp,"\$Nodes")
+    println(outp,nn)
     for i=1:nn
-        println(saida,i," ",coord[i,1]," ",coord[i,2]," ",coord[i,3])
+        println(outp,i," ",coord[i,1]," ",coord[i,2]," ",coord[i,3])
     end
-    println(saida,"\$EndNodes")
+    println(outp,"\$EndNodes")
 
-
+    #
     # Connectivities
-    println(saida,"\$Elements")
-    println(saida,ne)
+    #
+    println(outp,"\$Elements")
+    println(outp,ne)
     for i=1:ne 
         tipo = etype[i]
         con = string(i)*" "*string(tipo)*" 0 "*string(connect[i,1])
         for j=2:nos[tipo]
             con = con * " " * string(connect[i,j])
         end
-        println(saida,con)
+        println(outp,con)
     end
-    println(saida,"\$EndElements")
+    println(outp,"\$EndElements")
 
-    # Fecha o arquivo
-    close(saida)
+    # Close the file
+    close(outp)
 
     # Return true for testing purposes
     return true

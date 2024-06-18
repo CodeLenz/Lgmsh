@@ -20,8 +20,8 @@ function Lgmsh_nodal_vector(filename::String,vector::Vector,dim::Int,
     end
 
     # Number of nodes
-    try
-        nn = Int(length(vector)/dim)
+    nn = try
+        Int(length(vector)/dim)
     catch
         error("ERROR::Lgmsh_nodal_vector:: there is something wrong with the dimensions")
     end
@@ -42,7 +42,7 @@ function Lgmsh_nodal_vector(filename::String,vector::Vector,dim::Int,
         pos2 = dim*(no-1)+2; val2 = vector[pos2]
         val3 = 0.0
         if dim==3
-            pos3 = dim*(no-1)+3; val3 = vetor[pos3]
+            pos3 = dim*(no-1)+3; val3 = vector[pos3]
         end 
         println(outp,no," ",val1," ",val2," ",val3 )
     end
