@@ -1,10 +1,8 @@
-# Lgmsh
+# Lgmsh -  A very simple interface to pre and post-processing using Gmsh 
 
-[![Build Status](https://github.com/CodeLenz/Lgmsh.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/CodeLenz/Lgmsh.jl/actions/workflows/CI.yml?query=branch%3Amain)
+This package aims to offer some subroutines to export data to the gmsh post processing software (https://gmsh.info/). Import of gmsh meshes (pre-processing) is performed by using the Gmsh library.
 
-## A very simple interface to post-processing using Gmsh (https://gmsh.info/)
-
-This package aims to offer some subroutines to export data to the gmsh post processing software. Imort of gmsh meshes (pre-processing) will be added in the future.
+# Post-Processing
 
 All post-processing must start with the creation of a file with $filename$
 
@@ -148,6 +146,99 @@ vector = rand(dim*nn)
 Lgmsh_nodal_vector(filename,vector,dim,"Nodal vector 3D")           
 ```
 
+# Pre-Processing
+
+Pre-processing Gmsh .msh files is not very easy, since there are a lot of additional information on the .msh file. For example, if one creates a simple domain comprised of four points, four lines, one planar surface and a 2D mesh, there will be, at least, three types of finite elements; lines, points and the 2D elements (triangles and quads, for example). To make things worst, the imposition of boundary conditions is not direct and we must define Physical Groups. Thus, there are some soubroutines to parse basic information from such files.
+
+
+To recover nodes and nodal coordinates
+```julia
+nn, norder, coord = Lgmsh_import_coordinates(filename)
+```
+
+where 
+
+$nn$: is the number of nodes 
+
+$norder$: is an $nn \times 1$ vector of integers with the node numbers
+
+$coord$: is an $nn \times 3$ array with nodal coordinates
+
+
+To recover element types
+```julia
+etypes = Lgmsh_import_etypes(filename)
+```
+
+where 
+
+$etypes$: is an vector with all the element types in the mesh. 
+
+
+To recover elements of a given (valid) type
+```julia
+ne, number, connect =  Lgmsh_import_element_by_type(filename,type)
+```
+
+where 
+
+$ne$: is the number of elements of this type
+
+$number$: is an $ne \times 1$ are the element numbers in the mesh
+
+$connect$: is a matriz $ne \times n_{nodes}$ with the connectivities and $n_{nodes}$ is the number of nodes of this particular element type.
+
+
+To list Physical Groups and their names
+```julia
+pgroups, pgnames = Lgmsh_import_physical_groups(filename)
+```
+
+where 
+
+$pggroups" is a vector of tuples (dim,tag) 
+
+$pgnames" is a vector of strings
+
+
+To recover all the entities belonging to a given Physical Group name
+```julia
+entities = Lgmsh_import_entities_physical_group(filename,name)
+```
+
+Example
+
+Process the file testmesh1.msh in the test directory
+
+```julia
+# Load the package
+using Lgmsh
+
+# Path to the mesh file
+filename = joinpath(pathof(Lgmsh)[1:end-12],"test/testmesh1.msh")
+
+# Obtain nodes and coordinates
+# This model has 10 nodes
+nn, norder, coord = Lgmsh_import_coordinates(filename)
+
+# Obtain the list of element types
+# this file has elements of type 1,2,3 and 15
+etypes = Lgmsh_import_etypes(filename)
+
+# Obtain the information about the triangular elements (type 2)
+ne, number, connect =  Lgmsh_import_element_by_type(filename,2)
+
+# Obtain the Physical Groups and names
+# This file has 3 Physical Groups
+# (0, 5) named "u,all,0.0"
+# (1, 6) named "p,n,100.0"
+# (2, 7) named "material"
+pgroups, pgnames = Lgmsh_import_physical_groups(filename)
+
+# Obtain the entities with "p,n,100.0"
+entities = Lgmsh_import_entities_physical_group(filename,pgnames[2])
+
+```
 
 
 
