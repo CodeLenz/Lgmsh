@@ -25,6 +25,8 @@ $connect$: array with connectivities, with size $ne \times n_{max}$, where $n_{m
 
 Example 
 ```julia
+using Lgmsh
+
 #
 # Create a model with a square and a triangle
 #
