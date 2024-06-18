@@ -61,6 +61,9 @@
 #    edges, 12 with the faces, 1 in the volume)
 # 31 56-node fifth order tetrahedron (4 nodes associated with the vertices, 24 with the
 #    edges, 24 with the faces, 4 in the volume)
+#
+# Still not using (God bless)
+#
 # 92 64-node third order hexahedron (8 nodes associated with the vertices, 24 with the
 #    edges, 24 with the faces, 8 in the volume)
 # 93 125-node fourth order hexahedron (8 nodes associated with the vertices, 36 with the
@@ -76,10 +79,10 @@ function Lgmsh_init(filename::String,nn::T,ne::T,coord::Array{F},
     outp = open(filename,"a")
 
     # Map each element code to the number of nodes
-    nos = [2;3;4;4;8;6;5;3;6;9;10;27;18;14;1;8;20;15;13;9;10;12;15;15;21;4;5;6;20;35;56;64;125]
+    nos = [2;3;4;4;8;6;5;3;6;9;10;27;18;14;1;8;20;15;13;9;10;12;15;15;21;4;5;6;20;35;56]
 
     # length of previous list
-    lnos = length(nos)
+    lnos = 31
 
     # If user provided just 2 columns in coord, we add a third row with zeros
     if size(coord,2)==2
