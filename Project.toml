@@ -3,6 +3,9 @@ uuid = "901517f6-ef86-4a80-bf35-2c5b8e720204"
 authors = ["Eduardo Lenz <eduardobarplenz@gmail.com> and contributors"]
 version = "1.0.0-DEV"
 
+[deps]
+Gmsh = "705231aa-382f-11e9-3f0c-b7cb4346fdeb"
+
 [compat]
 julia = "1.9"
 
