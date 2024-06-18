@@ -1,6 +1,3 @@
-
-using Gmsh
-
 #
 # Use the Gmsh library (direct link to the C library)  to extract data in a 'friendly' manner to be used 
 # elsewere
@@ -86,7 +83,7 @@ end
 # Return number of elements, numbers and connectivities for 
 # all elements of a given type
 #
-function Lgmsh_import_element_by_type(filename::String,type::Int)
+function Lgmsh_import_element_by_type(filename::String,type)
 
     # Initialize gmsh (C library)
     gmsh.initialize()
@@ -195,6 +192,9 @@ function Lgmsh_import_entities_physical_group(filename::String,group::String)
 
     # Get entities
     entities = gmsh.model.getEntitiesForPhysicalName(group)
+
+    # Finalize gmsh
+    gmsh.finalize()
 
     # Return entities
     return entities
