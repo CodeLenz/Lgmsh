@@ -1,6 +1,5 @@
 using Lgmsh
 using Test
 
-@testset "Lgmsh.jl" begin
-    # Write your tests here.
-end
+include("test_init.jl")
+include("test_scalar.jl")
