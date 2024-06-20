@@ -23,5 +23,7 @@ module Lgmsh
     export Lgmsh_import_element_by_type
     export Lgmsh_import_physical_groups
     export Lgmsh_import_entities_physical_group
+    export Lgmsh_import_elements_tuple,  Lgmsh_import_nodes_tuple
+    export Lgmsh_import_nodes_elem_physical_group
 
 end
