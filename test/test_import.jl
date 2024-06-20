@@ -25,6 +25,9 @@
         entities = Lgmsh_import_entities_physical_group(filename,name)
         end
 
+        # Readmesh
+        nn,ne,coord,etypes,connect,tags = Readmesh(filename,[2,3])
+        
     end
 end
 

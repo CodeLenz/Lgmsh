@@ -22,6 +22,9 @@ function Readmesh(filename::String, elist::Vector{Int})
     # Allocate the array of connectivities
     connect = zeros(Int64,ne,nnmax)
 
+    # Allocate the array of types
+    types = zeros(Int64,ne)
+
     # Allocate an auxiliary vector with the 
     # original tags
     tags = zeros(Int64,ne) 
@@ -42,11 +45,14 @@ function Readmesh(filename::String, elist::Vector{Int})
         # Append tags
         tags[offset+1:offset+ne_e] .= tags_e
 
+        # Append types
+        types[offset+1:offset+ne_e] .= e 
+
         # Adjust the offset
         offset += ne_e
         
     end
 
-    return nn, coord, ne, connect, tags
+    return nn, coord, ne, types, connect, tags
 
 end

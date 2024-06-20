@@ -253,9 +253,10 @@ filename = joinpath(pathof(Lgmsh)[1:end-12],"test/testmesh1.msh")
 # nn is the number of nodes
 # ne is the number of elements
 # coord has the coordinates (x,y,z) for each node
+# etypes has the types of each element
 # connect has the connectivities for each element.
-# tags are the original tags os each element.
+# tags are the original tags of each element.
 # 
-nn,ne,coord,connect,tags = Readmesh(filename,[2,3])
+nn,ne,coord,etypes,connect,tags = Readmesh(filename,[2,3])
 
 ```
