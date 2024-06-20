@@ -32,8 +32,8 @@ function Lgmsh_import_coordinates(filename::String)
     gmsh.initialize()
 
     # Open file
-    gmsh.open(filename)
-
+    gmsh.open(filename) 
+    
     # Import node coordinates
     nodes = gmsh.model.mesh.getNodes()
 

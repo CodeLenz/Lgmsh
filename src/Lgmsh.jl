@@ -14,6 +14,12 @@ module Lgmsh
     # Pre-processing
     include("import.jl")
 
+    # utilities
+    include("convert_2D.jl")
+
+    # Definitions
+    export Lgmsh_nodemap
+
     # Post-processing
     export Lgmsh_export_init
     export Lgmsh_export_nodal_scalar, Lgmsh_export_element_scalar
@@ -26,5 +32,8 @@ module Lgmsh
     export Lgmsh_import_entities_physical_group
     export Lgmsh_import_elements_tuple,  Lgmsh_import_nodes_tuple
     export Lgmsh_import_nodes_elem_physical_group
+
+    # Utilities
+    export Convert_2D
 
 end
