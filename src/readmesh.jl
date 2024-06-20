@@ -1,7 +1,7 @@
 #
 # Read a .msh file and look for 2D (plane) elements of a given list
 #
-function Convert_2D(filename::String, elist::Vector{Int})
+function Readmesh(filename::String, elist::Vector{Int})
 
     # Nodes and coordinates
     nn, norder, coord = Lgmsh_import_coordinates(filename)

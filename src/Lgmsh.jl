@@ -15,7 +15,7 @@ module Lgmsh
     include("import.jl")
 
     # utilities
-    include("convert_2D.jl")
+    include("readmesh.jl")
 
     # Definitions
     export Lgmsh_nodemap
@@ -34,6 +34,6 @@ module Lgmsh
     export Lgmsh_import_nodes_elem_physical_group
 
     # Utilities
-    export Convert_2D
+    export Readmesh
 
 end

@@ -240,5 +240,22 @@ entities = Lgmsh_import_entities_physical_group(filename,pgnames[2])
 
 ```
 
+An experimental auxiliary function for processing .msh files is provided
 
+```julia
+# Load the package
+using Lgmsh
 
+# Path to the mesh file
+filename = joinpath(pathof(Lgmsh)[1:end-12],"test/testmesh1.msh")
+
+# Read the file, elements of type 2 (triangle) and 3 (quads)
+# nn is the number of nodes
+# ne is the number of elements
+# coord has the coordinates (x,y,z) for each node
+# connect has the connectivities for each element.
+# tags are the original tags os each element.
+# 
+nn,ne,coord,connect,tags = Readmesh(filename,[2,3])
+
+```
