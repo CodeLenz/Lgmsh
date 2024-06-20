@@ -22,12 +22,12 @@
 
         # Entities associated to each physical group
         for name in pgnames
-        entities = Lgmsh_import_entities_physical_group(filename,name)
+            entities = Lgmsh_import_entities_physical_group(filename,name)
         end
 
         # Readmesh
         nn,ne,coord,etypes,connect,tags = Readmesh(filename,[2,3])
-        
+
     end
 end
 
