@@ -1,7 +1,7 @@
 @testset "Lgmsh_import" begin
 
     # mesh
-    filename = "testmesh1.msh"
+    filename = "cantilever.msh"
 
     # Avoid printing gmsh output
     redirect_stdout(open(tempname(), "w")) do
@@ -26,7 +26,7 @@
         end
 
         # Readmesh
-        nn,ne,coord,etypes,connect,tags = Readmesh(filename,[2,3])
+        nn,ne,coord,etypes,connect,tags = Readmesh(filename,[3])
 
     end
 end

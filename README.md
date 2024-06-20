@@ -215,7 +215,7 @@ Process the file testmesh1.msh in the test directory
 using Lgmsh
 
 # Path to the mesh file
-filename = joinpath(pathof(Lgmsh)[1:end-12],"test/testmesh1.msh")
+filename = joinpath(pathof(Lgmsh)[1:end-12],"test/cantilever.msh")
 
 # Obtain nodes and coordinates
 # This model has 10 nodes
@@ -247,7 +247,7 @@ An experimental auxiliary function for processing .msh files is provided
 using Lgmsh
 
 # Path to the mesh file
-filename = joinpath(pathof(Lgmsh)[1:end-12],"test/testmesh1.msh")
+filename = joinpath(pathof(Lgmsh)[1:end-12],"test/cantilever.msh")
 
 # Read the file, elements of type 2 (triangle) and 3 (quads)
 # nn is the number of nodes
