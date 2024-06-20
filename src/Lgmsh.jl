@@ -3,6 +3,7 @@ module Lgmsh
     #https://gitlab.onelab.info/gmsh/gmsh/blob/master/api/gmsh.jl
     using Gmsh
 
+    # Basic definitions
     include("definitions.jl")
 
     # Post-processing
