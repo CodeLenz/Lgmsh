@@ -249,7 +249,7 @@ using Lgmsh
 # Path to the mesh file
 filename = joinpath(pathof(Lgmsh)[1:end-12],"test/cantilever.msh")
 
-# Read the file, elements of type 2 (triangle) and 3 (quads)
+# Read the file, elements of type 3 (quads)
 # nn is the number of nodes
 # ne is the number of elements
 # coord has the coordinates (x,y,z) for each node
@@ -257,6 +257,6 @@ filename = joinpath(pathof(Lgmsh)[1:end-12],"test/cantilever.msh")
 # connect has the connectivities for each element.
 # tags are the original tags of each element.
 # 
-nn,ne,coord,etypes,connect,tags = Readmesh(filename,[2,3])
+nn,ne,coord,etypes,connect,tags = Readmesh(filename,[3])
 
 ```
