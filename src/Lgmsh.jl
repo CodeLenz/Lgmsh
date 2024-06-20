@@ -1,7 +1,7 @@
 module Lgmsh
 
     #https://gitlab.onelab.info/gmsh/gmsh/blob/master/api/gmsh.jl
-    using Gmsh
+    using Gmsh:gmsh
 
     # Basic definitions
     include("definitions.jl")

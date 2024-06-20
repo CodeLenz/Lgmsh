@@ -1,5 +1,4 @@
 using Lgmsh
-using Gmsh
 using Test
 
 include("test_init.jl")
