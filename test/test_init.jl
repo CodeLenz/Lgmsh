@@ -1,4 +1,4 @@
-@testset "Lgmsh_init" begin
+@testset "Lgmsh_export_init" begin
 
     # Basic testing 
     # One triangle (type 2)
@@ -28,6 +28,6 @@
                4 3 5 0]
 
     # Create file
-    @test Lgmsh_init(filename,nn,ne,coord,etype,connect)           
+    @test Lgmsh_export_init(filename,nn,ne,coord,etype,connect)           
     
 end

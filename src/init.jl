@@ -10,8 +10,8 @@
 #            tipo de elemento da malha atual com mais nós em sua conectividade
 #
 #
-function Lgmsh_init(filename::String,nn::T,ne::T,coord::Array{F},
-                    etype::Vector{T},connect::Array{T}) where {T,F}
+function Lgmsh_export_init(filename::String,nn::T,ne::T,coord::Array{F},
+                           etype::Vector{T},connect::Array{T}) where {T,F}
 
     # If file exists, delete it
     if isfile(filename); rm(filename); end
@@ -31,7 +31,7 @@ function Lgmsh_init(filename::String,nn::T,ne::T,coord::Array{F},
     end
 
     # Assert that no information in etype is outside the bounds 1 and length(nos)
-    minimum(etype)>=1 && maximum(etype)<=lnos || throw("Lgmsh_init::etype must be in [1,$lnos]")
+    minimum(etype)>=1 && maximum(etype)<=lnos || throw("Lgmsh_export_init::etype must be in [1,$lnos]")
 
     #
     # Header

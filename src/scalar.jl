@@ -1,11 +1,11 @@
 """
 Export a nodal scalar view to gmsh post processing
 
-    Lgmsh_nodal_scalar(filename::String,scalars::Vector,
+    Lgmsh_export_nodal_scalar(filename::String,scalars::Vector,
                       viewname::String,time=0.0)
 
 """
-function Lgmsh_nodal_scalar(filename::String,scalars::Vector,
+function Lgmsh_export_nodal_scalar(filename::String,scalars::Vector,
                             viewname::String,time=0.0)
 
     # Vector length
@@ -15,7 +15,7 @@ function Lgmsh_nodal_scalar(filename::String,scalars::Vector,
     outp = try
          open(filename,"a")
     catch
-        error("ERROR::Lgmsh_nodal_scalar:: cannot open  $filename. Try to create such file using Lgmsh_init")
+        error("ERROR::Lgmsh_export_nodal_scalar:: cannot open  $filename. Try to create such file using Lgmsh_export_init")
     end
 
     #
@@ -50,13 +50,13 @@ end
 """
 Export an element (centroidal) scalar view to gmsh post processing
 
-    Lgmsh_element_scalar(filename::String,scalars::Vector,
+    Lgmsh_export_element_scalar(filename::String,scalars::Vector,
                          viewname::String,time=0.0)
 
 
 """
-function Lgmsh_element_scalar(filename::String,scalars::Vector,
-                              viewname::String,time=0.0)
+function Lgmsh_export_element_scalar(filename::String,scalars::Vector,
+                                     viewname::String,time=0.0)
 
 
     # Length
@@ -66,7 +66,7 @@ function Lgmsh_element_scalar(filename::String,scalars::Vector,
     outp = try
                 open(filename,"a")
     catch
-        error("ERROR::Lgmsh_element_scalar:: Cannot open file $filename. Try to create such file using Lgmsh_init")
+        error("ERROR::Lgmsh_export_element_scalar:: Cannot open file $filename. Try to create such file using Lgmsh_export_init")
     end
 
 

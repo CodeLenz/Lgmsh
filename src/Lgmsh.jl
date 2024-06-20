@@ -14,9 +14,9 @@ module Lgmsh
     include("import.jl")
 
     # Post-processing
-    export Lgmsh_init
-    export Lgmsh_nodal_scalar, Lgmsh_element_scalar
-    export Lgmsh_nodal_vector
+    export Lgmsh_export_init
+    export Lgmsh_export_nodal_scalar, Lgmsh_export_element_scalar
+    export Lgmsh_export_nodal_vector
     
     # Pre-processing
     export Lgmsh_import_coordinates, Lgmsh_import_etypes

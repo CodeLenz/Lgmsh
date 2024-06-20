@@ -1,4 +1,4 @@
-@testset "Lgmsh_vector" begin
+@testset "Lgmsh_export_vector" begin
 
     # Basic testing 
     # One triangle (type 2)
@@ -17,7 +17,7 @@
     vector = rand(dim*nn) 
 
     # Create view
-    @test Lgmsh_nodal_vector(filename,vector,dim,"Nodal vector 2D")           
+    @test Lgmsh_export_nodal_vector(filename,vector,dim,"Nodal vector 2D")           
 
     # Same view, 3D
 
@@ -28,5 +28,5 @@
     vector = rand(dim*nn) 
 
     # Create view
-    @test Lgmsh_nodal_vector(filename,vector,dim,"Nodal vector 3D")           
+    @test Lgmsh_export_nodal_vector(filename,vector,dim,"Nodal vector 3D")           
 end

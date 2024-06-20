@@ -1,29 +1,29 @@
 """
 Export a nodal vectorial view to gmsh
 
-    Lgmsh_nodal_vector(filename::String,vector::Vector,  
+    Lgmsh_export_nodal_vector(filename::String,vector::Vector,  
                        dim::Int, viewname::String,time=0.0)
 
     vector should be dim*nn where dim = 2 or 3 and nn is the
     number of nodes.
 
 """
-function Lgmsh_nodal_vector(filename::String,vector::Vector,dim::Int,
-                            viewname::String,time=0.0)
+function Lgmsh_export_nodal_vector(filename::String,vector::Vector,dim::Int,
+                                   viewname::String,time=0.0)
 
   
     # Try to open the file
     outp = try
                 open(filename,"a")
     catch
-        error("ERROR::Lgmsh_nodal_vector:: Cannot open file $filename")
+        error("ERROR::Lgmsh_export_nodal_vector:: Cannot open file $filename")
     end
 
     # Number of nodes
     nn = try
         Int(length(vector)/dim)
     catch
-        error("ERROR::Lgmsh_nodal_vector:: there is something wrong with the dimensions")
+        error("ERROR::Lgmsh_export_nodal_vector:: there is something wrong with the dimensions")
     end
 
     #
