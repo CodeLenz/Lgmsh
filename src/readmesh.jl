@@ -15,8 +15,13 @@ function Readmesh(filename::String, elist::Vector{Int})
     # Something very, very stupid
     ne = 0
     for e in elist
-        ne_e, _ = Lgmsh_import_element_by_type(filename,e)
+        ne_e, _ = Lgmsh_import_element_by_type(filename,e,false)
         ne += ne_e
+    end
+
+    # basic test
+    if ne==0
+       error("There are no elements of types $elist in this mesh")
     end
 
     # Allocate the array of connectivities
@@ -31,7 +36,7 @@ function Readmesh(filename::String, elist::Vector{Int})
 
     # Loop over elist AGAIN 
     offset = 0
-    for e in elist
+    for e in elistn
 
         # Recover data from each type of element
         ne_e, tags_e, connect_e = Lgmsh_import_element_by_type(filename,e,false)
