@@ -127,7 +127,7 @@ end
 # Return number of elements, numbers and connectivities for 
 # all elements of a given type
 #
-function Lgmsh_import_element_by_type(filename::String,type)
+function Lgmsh_import_element_by_type(filename::String,type,flag_error=true)
 
     # Initialize gmsh (C library)
     gmsh.initialize()
@@ -145,7 +145,20 @@ function Lgmsh_import_element_by_type(filename::String,type)
     pos = findfirst(x->x==type,element_types)
 
     # Check if there are elements of the required type
-    !isnothing(pos) || error("Lgmsh_import_element_by_type:there are no elements of type $type in this file")
+    if !isnothing(pos) 
+        
+        # Finalize gmsh
+        gmsh.finalize()
+
+        if flag_error
+           # Error
+           error("Lgmsh_import_element_by_type:there are no elements of type $type in this file")
+        else
+           # Return empty arrays
+           return 0, [], []
+        end 
+
+    end
 
     # Second entry is a vector of vectors, with a list with element tags for each element type
     tags = Int.(elements[2][pos])

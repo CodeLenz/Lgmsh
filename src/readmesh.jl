@@ -34,23 +34,30 @@ function Readmesh(filename::String, elist::Vector{Int})
     for e in elist
 
         # Recover data from each type of element
-        ne_e, tags_e, connect_e = Lgmsh_import_element_by_type(filename,e)
+        ne_e, tags_e, connect_e = Lgmsh_import_element_by_type(filename,e,false)
 
-        # Number of nodes per element in this particular type
-        nne = npe[e]
+        # Skip if ne_e is zero (no element of this type)
+        if ne_e > 0 
 
-        # Append connectivities
-        connect[offset+1:offset+ne_e,1:nne] .= connect_e
+            # Number of nodes per element in this particular type
+            nne = npe[e]
 
-        # Append tags
-        tags[offset+1:offset+ne_e] .= tags_e
+            # Append connectivities
+            connect[offset+1:offset+ne_e,1:nne] .= connect_e
 
-        # Append types
-        types[offset+1:offset+ne_e] .= e 
+            # Append tags
+            tags[offset+1:offset+ne_e] .= tags_e
 
-        # Adjust the offset
-        offset += ne_e
-        
+            # Append types
+            types[offset+1:offset+ne_e] .= e 
+
+            # Adjust the offset
+            offset += ne_e
+
+        else
+            println("Warning: No elements of type $e in this file")
+        end
+            
     end
 
     return nn, coord, ne, types, connect, tags
