@@ -32,7 +32,12 @@ function Lgmsh_import_coordinates(filename::String)
     gmsh.initialize()
 
     # Open file
-    gmsh.open(filename) 
+    try
+        gmsh.open(filename) 
+    catch
+        gmsh.finalize()
+        error("file $filename does not exist")
+    end
     
     # Import node coordinates
     nodes = gmsh.model.mesh.getNodes()
@@ -80,8 +85,13 @@ function Lgmsh_import_etypes(filename::String)
     gmsh.initialize()
 
     # Open file
-    gmsh.open(filename)
-
+    try
+        gmsh.open(filename) 
+    catch
+        gmsh.finalize()
+        error("file $filename does not exist")
+    end
+   
     # Import elements
     #
     # First entry is a list of element types
@@ -133,8 +143,13 @@ function Lgmsh_import_element_by_type(filename::String,type,flag_error=true)
     gmsh.initialize()
 
     # Open file
-    gmsh.open(filename)
-
+    try
+        gmsh.open(filename) 
+    catch
+        gmsh.finalize()
+        error("file $filename does not exist")
+    end
+   
     # Import elements
     elements = gmsh.model.mesh.getElements()
 
@@ -208,8 +223,13 @@ function Lgmsh_import_physical_groups(filename::String)
     gmsh.initialize()
 
     # Open file
-    gmsh.open(filename)
-
+    try
+        gmsh.open(filename) 
+    catch
+        gmsh.finalize()
+        error("file $filename does not exist")
+    end
+   
     # Load PhysicalGroups
     pgroups = gmsh.model.getPhysicalGroups()
 
@@ -245,8 +265,13 @@ function Lgmsh_import_entities_physical_group(filename::String,group::String)
     gmsh.initialize()
 
     # Open file
-    gmsh.open(filename)
-
+    try
+        gmsh.open(filename) 
+    catch
+        gmsh.finalize()
+        error("file $filename does not exist")
+    end
+   
     # Get entities
     entities = gmsh.model.getEntitiesForPhysicalName(group)
 
@@ -281,8 +306,13 @@ function Lgmsh_import_elements_tuple(filename::String,dim,tag)
     gmsh.initialize()
 
     # Open file
-    gmsh.open(filename)
-
+    try
+        gmsh.open(filename) 
+    catch
+        gmsh.finalize()
+        error("file $filename does not exist")
+    end
+   
     # Recover a list of element types and a vector of vectors with element
     # tags
     elementTypes, elementTags, _ = gmsh.model.mesh.getElements(dim, tag)
@@ -312,19 +342,24 @@ end
 
 function Lgmsh_import_nodes_tuple(filename::String,dim,tag)
 
-        # Initialize gmsh (C library)
-        gmsh.initialize()
+    # Initialize gmsh (C library)
+    gmsh.initialize()
     
-        # Open file
-        gmsh.open(filename)
-    
-        # Nodes
-        nodes = gmsh.model.mesh.getNodes(dim, tag)
-    
-        # Finalize gmsh
+    # Open file
+    try
+        gmsh.open(filename) 
+    catch
         gmsh.finalize()
+        error("file $filename does not exist")
+    end
+        
+    # Nodes
+    nodes = gmsh.model.mesh.getNodes(dim, tag)
     
-        return nodes
+    # Finalize gmsh
+    gmsh.finalize()
+    
+    return nodes
     
 end
 
@@ -347,7 +382,12 @@ function Lgmsh_import_nodes_elems_physical_group(filename::String, dim, tag)
     gmsh.initialize()
     
     # Open file
-    gmsh.open(filename)
+    try
+        gmsh.open(filename) 
+    catch
+        gmsh.finalize()
+        error("file $filename does not exist")
+    end
      
     # Node tags
     tags, _ =  gmsh.model.mesh.getNodesForPhysicalGroup(dim, tag)
