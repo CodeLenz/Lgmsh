@@ -145,7 +145,7 @@ function Lgmsh_import_element_by_type(filename::String,type,flag_error=true)
     pos = findfirst(x->x==type,element_types)
 
     # Check if there are elements of the required type
-    if !isnothing(pos) 
+    if isnothing(pos) 
         
         # Finalize gmsh
         gmsh.finalize()
