@@ -215,27 +215,22 @@ Process the file testmesh1.msh in the test directory
 using Lgmsh
 
 # Path to the mesh file
-filename = joinpath(pathof(Lgmsh)[1:end-12],"test/cantilever.msh")
+filename = joinpath(pathof(Lgmsh)[1:end-12],"geo/cantilever.msh")
 
 # Obtain nodes and coordinates
 # This model has 10 nodes
 nn, norder, coord = Lgmsh_import_coordinates(filename)
 
 # Obtain the list of element types
-# this file has elements of type 1,2,3 and 15
 etypes = Lgmsh_import_etypes(filename)
 
 # Obtain the information about the triangular elements (type 2)
 ne, number, connect =  Lgmsh_import_element_by_type(filename,2)
 
 # Obtain the Physical Groups and names
-# This file has 3 Physical Groups
-# (0, 5) named "u,all,0.0"
-# (1, 6) named "p,n,100.0"
-# (2, 7) named "material"
 pgroups, pgnames = Lgmsh_import_physical_groups(filename)
 
-# Obtain the entities with "p,n,100.0"
+# Obtain the entities with for the second group
 entities = Lgmsh_import_entities_physical_group(filename,pgnames[2])
 
 ```
@@ -247,7 +242,7 @@ An experimental auxiliary function for processing .msh files is provided
 using Lgmsh
 
 # Path to the mesh file
-filename = joinpath(pathof(Lgmsh)[1:end-12],"test/cantilever.msh")
+filename = joinpath(pathof(Lgmsh)[1:end-12],"geo/cantilever.msh")
 
 # Read the file, elements of type 3 (quads)
 # nn is the number of nodes
