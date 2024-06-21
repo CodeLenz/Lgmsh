@@ -1,7 +1,7 @@
 @testset "Lgmsh_import" begin
 
     # mesh
-    filename = "cantilever.msh"
+    filename = joinpath(pathof(Lgmsh)[1:end-12],"geo/cantilever.msh")
 
     # Avoid printing gmsh output
     redirect_stdout(open(tempname(), "w")) do
