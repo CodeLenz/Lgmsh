@@ -235,23 +235,40 @@ entities = Lgmsh_import_entities_physical_group(filename,pgnames[2])
 
 ```
 
-An experimental auxiliary function for processing .msh files is provided
+Some higer level auxiliary functions for processing .msh files are provided
 
 ```julia
 # Load the package
 using Lgmsh
 
 # Path to the mesh file
-filename = joinpath(pathof(Lgmsh)[1:end-12],"geo/cantilever.msh")
+filename = joinpath(pathof(Lgmsh)[1:end-12],"geo/plate_hole.msh")
 
-# Read the file, elements of type 3 (quads)
+# Read the file, elements of type 2 (tri) and 3 (quads)
 # nn is the number of nodes
 # ne is the number of elements
 # coord has the coordinates (x,y,z) for each node
 # etypes has the types of each element
 # connect has the connectivities for each element.
-# tags are the original tags of each element.
+# etags is a dictionary with the original tags of each element.
 # 
-nn,ne,coord,etypes,connect,tags = Readmesh(filename,[3])
+nn,ne,coord,etypes,connect,etags = Readmesh(filename,[3])
+
+# Obtain the Physical Groups and names
+pgroups, pgnames = Lgmsh_import_physical_groups(filename)
+
+#
+# There are three groups
+#
+# ["U,Y,0.0", "P,X,100.0", "U,X,0.0", "Domain"]
+
+# Get all nodes for the group "U,X,0.0"
+nodesx = Readnodesgroup(filename,"U,X,0.0")
+
+# Get all nodes for the group "U,Y,0.0"
+nodesy = Readnodesgroup(filename,"U,X,0.0")
+
+# Get all elements inside Domain
+elems_domain = Readelementsgroup(filename,"Domain",etags)
 
 ```

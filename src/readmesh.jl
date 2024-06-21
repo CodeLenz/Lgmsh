@@ -33,15 +33,12 @@ function Readmesh(filename::String, elist::Vector{Int})
         # Allocate the array of types
         types = zeros(Int64,ne)
 
-        # Allocate an auxiliary vector with the 
-        # original tags
-        # 
+        #
         # Dictionary with the original tag and the new
         # element number
         #
         tags = Dict{Int,Int}()
-        #tags = zeros(Int64,ne) 
-
+       
         # Loop over elist AGAIN 
         offset = 0
         cont = 1
@@ -58,9 +55,6 @@ function Readmesh(filename::String, elist::Vector{Int})
 
                 # Append connectivities
                 connect[offset+1:offset+ne_e,1:nne] .= connect_e
-
-                # Append tags
-                tags[offset+1:offset+ne_e] .= tags_e
 
                 # Append types
                 types[offset+1:offset+ne_e] .= e 
@@ -92,26 +86,31 @@ end
 # Recover all nodes from a given NAME of Physical Groups
 # 
 function Readnodesgroup(filename::String,group::String)
+
+    # To avoid printing gmsh output
+    redirect_stdout(open(tempname(), "w")) do
+
+        # Find tuples associated to this guy
+        V  = Lgmsh_import_entities_physical_group(filename,group)
+
+        # For each pair, get the nodes and add to list
+        list = Int[]
+
+        # Loop over pairs
+        for pair in V
+
+        # Get the nodes
+        nodes = Lgmsh_import_nodes_tuple(filename,pair[1],pair[2])
         
-    # Find tuples associated to this guy
-    V  = Lgmsh_import_entities_physical_group(filename,group)
+        # Append to the list
+        list = vcat(list,nodes)
 
-    # For each pair, get the nodes and add to list
-    list = Int[]
+        end
 
-    # Loop over pairs
-    for pair in V
+        # Return the list
+        return list
 
-      # Get the nodes
-      nodes = Lgmsh_import_nodes_tuple(filename,pair[1],pair[2])
-      
-      # Append to the list
-      list = vcat(list,nodes)
-
-    end
-
-    # Return the list
-    return list
+    end 
 
 end
 
@@ -119,52 +118,41 @@ end
 #
 # Recover all elements from a given NAME of Physical Groups
 # 
-function Readelementsgroup(filename::String,group::String)
+function Readelementsgroup(filename::String,group::String,tags::Dict{Int,Int})
 
-    # Find tuples associated to this guy
-    V  = Lgmsh_import_entities_physical_group(filename,group)
+    # To avoid printing gmsh output
+    redirect_stdout(open(tempname(), "w")) do
 
-    # For each pair, get the elements and add to list
-    list = Int[]
+        # Find tuples associated to this guy
+        V  = Lgmsh_import_entities_physical_group(filename,group)
 
-    # Loop over pairs
-    for pair in V
+        # For each pair, get the elements and add to list
+        list = Int[]
 
-      # Get the nodes
-      etypes,etags = Lgmsh_import_elements_tuple(filename,pair[1],pair[2])
+        # Loop over pairs
+        for pair in V
 
-      # We do not care with the element type 
-      for i=1:length(etypes) 
+        # Get the nodes
+        etypes,etags = Lgmsh_import_elements_tuple(filename,pair[1],pair[2])
 
-        # Element tags
-        tags = Int.(etags[i])
+        # We do not care with the element type 
+        for i=1:length(etypes) 
 
-        # Append
-        list = vcat(list,tags)
+            # Element tags
+            inttags = Int.(etags[i])
 
-      end #i
+            # Convert tags using the dictionary
+            conv = [tags[i] for i in inttags]
 
+            # Append
+            list = vcat(list,conv)
+
+        end #i
+
+        end
+
+        # Return the list
+        return list
+        
     end
-
-    # Return the list
-    return list
-
 end
-
-
-#
-# To import the nodes of a physical group, we must
-#
-# Call  
-# 
-# a is a vetor of tuples
-# t = a[1]
-# nodes,_    = Lgmsh_import_nodes_tuple(filename,t[1],t[2]) 
-#
-# To import elements of a PG
-# a  = Lgmsh_import_entities_physical_group(filename,string)
-# a is a vetor of tuples
-# t = a[1]
-# 
-# elementTypes, elementTags = _elements_tuple(....)
-#

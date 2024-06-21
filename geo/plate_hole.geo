@@ -1,7 +1,8 @@
 SetFactory("OpenCASCADE");
 
 // Set size for mesh 
-lc = 0.1;
+// It will be changed in the bottom of the file
+lc = 1.0;
 
 // Corner points
 Point(1) = {0, 0, 0, lc};
@@ -19,8 +20,8 @@ Line(4) = {4, 1};
 Curve Loop(1) = {3, 4, 1, 2};
 
 // Circle
-Mesh.MinimumCirclePoints = 3;
-radius = 0.1;
+Mesh.MinimumCirclePoints = 1;
+radius = 0.2;
 cx = 1.0;
 cy = 0.5;
 cz = 0.0;
@@ -33,7 +34,7 @@ Curve Loop(2) = {5};
 Plane Surface(1) = {1, 2};
 
 // Set a name and number for this Phisical Surface
-Physical Surface("Dominio", 2) = {1};
+Physical Surface("Domain", 2) = {1};
 
 // Lets apply a surface force in the second lines
 Physical Line("P,X,100.0",3) = {2};
@@ -46,6 +47,12 @@ Physical Point("U,Y,0.0",5) = {1};
 
 // Convert triangles to quads
 Recombine Surface{1};
+
+// Set smooth ratio
+Mesh.SmoothRatio = 3;
+
+// Global mesh size
+MeshSize {:} = 0.05;
 
 // Better quad algorithm
 Mesh.Algorithm = 8;
