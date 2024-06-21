@@ -320,7 +320,7 @@ function Lgmsh_import_elements_tuple(filename::String,dim,tag)
     # Finalize gmsh
     gmsh.finalize()
 
-    return elementTypes, elementTags
+    return  elementTypes, elementTags
 
 end
 
@@ -354,12 +354,12 @@ function Lgmsh_import_nodes_tuple(filename::String,dim,tag)
     end
         
     # Nodes
-    nodes = gmsh.model.mesh.getNodes(dim, tag)
+    nodetags, _ = gmsh.model.mesh.getNodes(dim, tag)
     
     # Finalize gmsh
     gmsh.finalize()
     
-    return nodes
+    return Int.(nodetags)
     
 end
 

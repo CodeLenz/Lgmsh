@@ -33,16 +33,16 @@ Curve Loop(2) = {5};
 Plane Surface(1) = {1, 2};
 
 // Set a name and number for this Phisical Surface
-Physical Surface("Dominio", 6) = {1};
+Physical Surface("Dominio", 2) = {1};
 
 // Lets apply a surface force in the second lines
-Physical Line("P,X,100.0") = {2};
+Physical Line("P,X,100.0",3) = {2};
 
 // Lets constrain the fourth line in X
-Physical Line("U,X,0.0") = {4};
+Physical Line("U,X,0.0",4) = {4};
 
 // And the first node in Y as well
-Physical Point("U,Y,0.0") = {1};
+Physical Point("U,Y,0.0",5) = {1};
 
 // Convert triangles to quads
 Recombine Surface{1};
