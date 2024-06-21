@@ -68,8 +68,10 @@ function Readmesh(filename::String, elist::Vector{Int})
                 
         end
 
-    end
-    
-    return nn, coord, ne, types, connect, tags
+        # Return mesh data
+        return nn, coord, ne, types, connect, tags
 
+    end
+
+   
 end
