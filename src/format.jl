@@ -26,19 +26,22 @@ function Arraytostring(A::Array)
 #
 # Hack to account for Nothing
 #
-function Stringtoarray(dado::Nothing,ncol::Int64,T::Type)
+function Stringtoarray(data::Nothing,ncol::Int64,T::Type)
     return T[]
 end
 
 #
 # Convert a string to an Array of type T, with  ncol columns.
-# dado is a  string with the data, separated by spaces. 
+# data is a  string with the data, separated by spaces. 
 # The order is line by line, separated by \n.
 #
-function Stringtoarray(dado::String,ncol::Int64,T::Type)
+function Stringtoarray(data::String,ncol::Int64,T::Type) 
+
+  # T must be subtype of Number
+  T<:Number || error("Stringtoarray:: T must be some numeric type and not $T")
 
   # Split string by " "
-  sep = split(dado)
+  sep = split(data)
 
   # Check dimension
   if !(rem(length(sep),ncol)==0)
@@ -53,23 +56,19 @@ function Stringtoarray(dado::String,ncol::Int64,T::Type)
 
   # Iterate on sep and convert to the given type.
   cont = 1
-  for i=1:nwor
+  for i=1:nrow
     for j=1:ncol
 
       # Information
       info = sep[cont]
 
-      # Se T não for String, converte a informação para o tipo de dado desejado
-      if T===String
-        value = info
-      else
-        try
-          value  = parse(T,info)
-        catch
-          error("Cannot convert $(info) to type  $T")
-        end
+      # Parse information to T
+      value = try
+        parse(T,info)
+      catch
+        error("Cannot convert $(info) to type  $T")
       end
-    
+     
       # Store
       outp[i,j] = value
 
