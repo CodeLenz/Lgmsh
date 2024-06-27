@@ -32,8 +32,11 @@ module Lgmsh
     export Lgmsh_import_entities_physical_group
     export Lgmsh_import_elements_tuple,  Lgmsh_import_nodes_tuple
     export Lgmsh_import_nodes_elem_physical_group
-
+    
     # Utilities
     export Readmesh
+    export Readelementsgroup
+    export Readnodesgroup
+
 
 end

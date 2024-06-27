@@ -265,7 +265,7 @@ filename = joinpath(pathof(Lgmsh)[1:end-12],"geo/plate_hole.msh")
 # connect has the connectivities for each element.
 # etags is a dictionary with the original tags of each element.
 # 
-nn,ne,coord,etypes,connect,etags = Readmesh(filename,[3])
+nn,coord,ne,etypes,connect,etags = Readmesh(filename,[3])
 
 # Obtain the Physical Groups and names
 pgroups, pgnames = Lgmsh_import_physical_groups(filename)
