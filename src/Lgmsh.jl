@@ -17,20 +17,27 @@ module Lgmsh
     # utilities
     include("readmesh.jl")
 
-    # Definitions
+    # Format 
+    include("format.jl")
+
+    # Definitions with the number of nodes
+    # of each element type (gmsh)
     export Lgmsh_nodemap
 
     # Post-processing
     export Lgmsh_export_init
-    export Lgmsh_export_nodal_scalar, Lgmsh_export_element_scalar
+    export Lgmsh_export_nodal_scalar
+    export Lgmsh_export_element_scalar
     export Lgmsh_export_nodal_vector
     
     # Pre-processing
-    export Lgmsh_import_coordinates, Lgmsh_import_etypes
+    export Lgmsh_import_coordinates
+    export Lgmsh_import_etypes
     export Lgmsh_import_element_by_type
     export Lgmsh_import_physical_groups
     export Lgmsh_import_entities_physical_group
-    export Lgmsh_import_elements_tuple,  Lgmsh_import_nodes_tuple
+    export Lgmsh_import_elements_tuple
+    export Lgmsh_import_nodes_tuple
     export Lgmsh_import_nodes_elem_physical_group
     
     # Utilities
@@ -38,5 +45,7 @@ module Lgmsh
     export Readelementsgroup
     export Readnodesgroup
 
+    # Format
+    export Arraytostring, Stringtoarray
 
 end
