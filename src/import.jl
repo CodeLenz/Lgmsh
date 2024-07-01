@@ -353,8 +353,8 @@ function Lgmsh_import_nodes_tuple(filename::String,dim,tag)
         error("file $filename does not exist")
     end
         
-    # Nodes
-    nodetags, _ = gmsh.model.mesh.getNodes(dim, tag)
+    # Nodes (include boundary)
+    nodetags, _ = gmsh.model.mesh.getNodes(dim, tag, true)
     
     # Finalize gmsh
     gmsh.finalize()
