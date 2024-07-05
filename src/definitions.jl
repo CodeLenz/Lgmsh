@@ -39,10 +39,6 @@ end
 # Number of nodes per face
 Lgmsh_nodesfaces() = [1;3;4;3;4]
 
-
-
-end
-
 # Map number of nodes in faces of each element
 function Lgmsh_listnodesfaces() 
     
