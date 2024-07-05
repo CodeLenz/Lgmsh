@@ -13,7 +13,7 @@ function Lgmsh_listnodesedges()
     nodesedges = Dict{Int,Matrix{Int}}()
 
     # Type 1
-    nodesedges[1] = [ 1 ; 2 ]
+    nodesedges[1] = [ 1 ; 2 ;;]
 
     # Type 2
     nodesedges[2] =  [1 2 ; 2  3 ; 3 1 ] 
