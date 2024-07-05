@@ -44,7 +44,9 @@ end
 # nodesgroup information.
 # 
 #
-# ne, types, connect and tags are obtained using ReadMesh
+
+# ne, types, connect and tags are obtained using ReadMesh. Element
+# numbers are ours, not gmsh. 
 # 
 # nodesgroup is obtained using Readnodesgroup
 #
@@ -60,8 +62,12 @@ function FindElementsEdges(etype, ne, types, connect, tags, nodesgroup)
     list_edges = Int[]
 
     # Number of nodes per edge of - etype - 
-    nE = Lgmsh_nodesedges()[etype]
+    nE = Lgmsh.Lgmsh_nodesedges()[etype]
 
+    # Nodes at each edge (in order)
+    nodes = Lgmsh.Lgmsh_listnodesedges()[etype]
+    nnodes = size(nodes,1)
+    
     # Loop over all elements
     for i in LinearIndices(types)
         
@@ -72,6 +78,9 @@ function FindElementsEdges(etype, ne, types, connect, tags, nodesgroup)
             # nodes of this element
             positions = Vector_match(connect[i,:],nodesgroup)
 
+            # sort it
+            sort!(positions) 
+
             # Check if it is compatible with nE
             if length(positions)==nE
 
@@ -79,13 +88,84 @@ function FindElementsEdges(etype, ne, types, connect, tags, nodesgroup)
                 push!(list_elements,i)
 
                 # Find the edge
-                
-
-            end
+                for k=1:nnodes
+                    no = sort(nodes[k,:])
+                    if all(positions.==no)
+                       push!(list_edges,k)
+                       break
+                    end
+                end #k
+            
+            end #if
 
         end # if 
 
     end # i
     
+    return list_elements, list_edges
+
+end
+
+
+
+
+# ne, types, connect and tags are obtained using ReadMesh. Element
+# numbers are ours, not gmsh. 
+# 
+# nodesgroup is obtained using Readnodesgroup
+#
+function FindElementsFaces(etype, ne, types, connect, tags, nodesgroup)
+
+    # For all elements of type - etype -
+    # check if the element has nodes in nodesgroup
+
+    # List of elements
+    list_elements = Int[]
+
+    # List of faces
+    list_faces = Int[]
+
+    # Number of nodes per edge of - etype - 
+    nE = Lgmsh.Lgmsh_nodesfaces()[etype]
+
+    # Nodes at each face (in order)
+    nodes = Lgmsh.Lgmsh_listnodesfaces()[etype]
+    nnodes = size(nodes,1)
+    
+    # Loop over all elements
+    for i in LinearIndices(types)
+        
+        # Check if element is of type - etype - 
+        if types[i]==etype
+
+            # Check if nodesgroup contains nface
+            # nodes of this element
+            positions = Vector_match(connect[i,:],nodesgroup)
+
+            # sort it
+            sort!(positions) 
+
+            # Check if it is compatible with nE
+            if length(positions)==nE
+
+                # Store element
+                push!(list_elements,i)
+
+                # Find the edge
+                for k=1:nnodes
+                    no = sort(nodes[k,:])
+                    if all(positions.==no)
+                       push!(list_faces,k)
+                       break
+                    end
+                end #k
+            
+            end #if
+
+        end # if 
+
+    end # i
+    
+    return list_elements, list_faces
 
 end

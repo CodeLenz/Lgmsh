@@ -25,7 +25,7 @@ Plane Surface(1) = {1};
 Physical Surface("Material,Ar,1,1.028,340.0,400.0") = {1};
 
 // Boundary conditions - Open
-Physical Curve("Open") = {4};
+Physical Curve("Open") = {2,4};
 
 // Convert triangles to quads
 Recombine Surface{:};

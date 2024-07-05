@@ -4,7 +4,7 @@ Lgmsh_nodemap() = [2;3;4;4;8;6;5;3;6;9;10;27;18;14;1;8;20;15;13;9;10;12;15;15;21
 ############## TODO - IMPROVE THE FOLLOWING VECTORS ##################
 
 # Map number of nodes in edges of each element
-Lgmsh_nodesedges() =[1;2;2;2;2]
+Lgmsh_nodesedges() = [1;2;2;2;2]
 
 # Nodes of each edge of each element type
 function Lgmsh_listnodesedges() 
@@ -13,13 +13,13 @@ function Lgmsh_listnodesedges()
     nodesedges = Dict{Int,Matrix{Int}}()
 
     # Type 1
-    nodesedges[1] = [ 1 2 ]
+    nodesedges[1] = [ 1 ; 2 ]
 
     # Type 2
     nodesedges[2] =  [1 2 ; 2  3 ; 3 1 ] 
     
     # Type 3
-    nodesedges[3] =  [1 2 ; 2  3 ; 3 4 ; 4 1 ] 
+    nodesedges[3] =  [1 2 ; 2  3 ; 3 4 ; 1 4 ] 
 
     # Type 4
     nodesedges[4] = [1 2 ; 2 3 ; 3 4 ; 1 4 ; 2 4 ; 3 4]
@@ -35,9 +35,48 @@ function Lgmsh_listnodesedges()
 
 end
 
-# Map number of nodes in faces of each element
-Lgmsh_nodesfaces() =[2;3;4;3;4]
 
+# Number of nodes per face
+Lgmsh_nodesfaces() = [1;3;4;3;4]
+
+
+
+end
+
+# Map number of nodes in faces of each element
+function Lgmsh_listnodesfaces() 
+    
+    # Initialize the dictionary
+    nodesfaces = Dict{Int,Matrix{Int}}()
+
+    # Type 1
+    nodesfaces[1] = [ 1 2 ]
+
+    # Type 2
+    nodesfaces[2] =  [1 2 3 ] 
+    
+    # Type 3
+    nodesfaces[3] =  [1 2 3 4 ] 
+
+    # Type 4
+    nodesfaces[4] = [1 2 3 ;
+                     1 2 4 ; 
+                     3 3 4 ;
+                     1 3 4 ]
+
+    # Type 5
+    nodesfaces[5] = [1 2 3 4 ;
+                     5 6 7 8 ;
+                     1 2 4 5 ;
+                     2 3 7 6 ;
+                     4 3 7 8 ;
+                     1 4 8 5 ]
+
+   
+    # Return the dictionary
+    return nodesfaces
+
+end
 
 
 # os etypes são os do gmsh (https://gmsh.info/dev/doc/texinfo/gmsh.pdf)
