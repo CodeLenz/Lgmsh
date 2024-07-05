@@ -169,3 +169,19 @@ function FindElementsFaces(etype, ne, types, connect, tags, nodesgroup)
     return list_elements, list_faces
 
 end
+
+#=
+
+using Lgmsh
+
+nn, coord, ne, types, connect, tags = Readmesh("geo/daniele.msh",[3])
+
+nodes = Readnodesgroup("geo/daniele.msh","Open")
+
+include("src/aux_import.jl")
+
+FindElementsFaces(3,ne,types,connect,tags,nodes)
+
+FindElementsEdges(3,ne,types,connect,tags,nodes)
+
+=#
