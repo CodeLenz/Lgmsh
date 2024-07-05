@@ -1,7 +1,45 @@
 # Map each element code to the number of nodes
 Lgmsh_nodemap() = [2;3;4;4;8;6;5;3;6;9;10;27;18;14;1;8;20;15;13;9;10;12;15;15;21;4;5;6;20;35;56]
 
-#
+############## TODO - IMPROVE THE FOLLOWING VECTORS ##################
+
+# Map number of nodes in edges of each element
+Lgmsh_nodesedges() =[1;2;2;2;2]
+
+# Nodes of each edge of each element type
+function Lgmsh_listnodesedges() 
+    
+    # Initialize the dictionary
+    nodesedges = Dict{Int,Matrix{Int}}()
+
+    # Type 1
+    nodesedges[1] = [ 1 2 ]
+
+    # Type 2
+    nodesedges[2] =  [1 2 ; 2  3 ; 3 1 ] 
+    
+    # Type 3
+    nodesedges[3] =  [1 2 ; 2  3 ; 3 4 ; 4 1 ] 
+
+    # Type 4
+    nodesedges[4] = [1 2 ; 2 3 ; 3 4 ; 1 4 ; 2 4 ; 3 4]
+
+    # Type 5
+    nodesedges[5] = [1 2 ; 2 3 ; 3 4 ; 1 4 ;
+                     5 6 ; 6 7 ; 7 8 ; 8 5 ; 
+                     1 5 ; 2 6 ; 3 7 ; 4 8 ]
+
+   
+    # Return the dictionary
+    return nodesedges
+
+end
+
+# Map number of nodes in faces of each element
+Lgmsh_nodesfaces() =[2;3;4;3;4]
+
+
+
 # os etypes são os do gmsh (https://gmsh.info/dev/doc/texinfo/gmsh.pdf)
 #
 # 1  2-node line.
