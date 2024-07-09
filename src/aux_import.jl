@@ -46,11 +46,18 @@ end
 #
 
 # ne, types, connect and tags are obtained using ReadMesh. Element
-# numbers are ours, not gmsh. 
+# numbers are ours, not internal gmsh numbers. 
 # 
-# nodesgroup is obtained using Readnodesgroup
+# nodesgroup is obtained by using Readnodesgroup
 #
-function FindElementsEdges(etype, ne, types, connect, tags, nodesgroup)
+#
+# Example:
+#
+# nn,ne,coord,etypes,connect,etags = Readmesh(filename,[3])
+# nodesgroup = Readnodesgroup(filename,gname)
+# eles,edges = FindElementsEdges(3, ne, etypes, connect, nodesgroup)
+#
+function FindElementsEdges(etype, ne, types, connect, nodesgroup)
 
     # For all elements of type - etype -
     # check if the element has nodes in nodesgroup
@@ -62,10 +69,10 @@ function FindElementsEdges(etype, ne, types, connect, tags, nodesgroup)
     list_edges = Int[]
 
     # Number of nodes per edge of - etype - 
-    nE = Lgmsh.Lgmsh_nodesedges()[etype]
+    nE = Lgmsh_nodesedges()[etype]
 
     # Nodes at each edge (in order)
-    nodes = Lgmsh.Lgmsh_listnodesedges()[etype]
+    nodes = Lgmsh_listnodesedges()[etype]
     nnodes = size(nodes,1)
     
     # Loop over all elements
@@ -110,11 +117,20 @@ end
 
 
 # ne, types, connect and tags are obtained using ReadMesh. Element
-# numbers are ours, not gmsh. 
+# numbers are ours, not internal gmsh numbers. 
 # 
 # nodesgroup is obtained using Readnodesgroup
 #
-function FindElementsFaces(etype, ne, types, connect, tags, nodesgroup)
+# 
+# Example:
+#
+# nn,ne,coord,etypes,connect,etags = Readmesh(filename,[3])
+# nodesgroup = Readnodesgroup(filename,gname)
+# eles,faces = FindElementsFaces(3, ne, etypes, connect, nodesgroup)
+#
+#
+#
+function FindElementsFaces(etype, ne, types, connect, nodesgroup)
 
     # For all elements of type - etype -
     # check if the element has nodes in nodesgroup
@@ -126,10 +142,10 @@ function FindElementsFaces(etype, ne, types, connect, tags, nodesgroup)
     list_faces = Int[]
 
     # Number of nodes per edge of - etype - 
-    nE = Lgmsh.Lgmsh_nodesfaces()[etype]
+    nE = Lgmsh_nodesfaces()[etype]
 
     # Nodes at each face (in order)
-    nodes = Lgmsh.Lgmsh_listnodesfaces()[etype]
+    nodes = Lgmsh_listnodesfaces()[etype]
     nnodes = size(nodes,1)
     
     # Loop over all elements
@@ -151,7 +167,7 @@ function FindElementsFaces(etype, ne, types, connect, tags, nodesgroup)
                 # Store element
                 push!(list_elements,i)
 
-                # Find the edge
+                # Find the face
                 for k=1:nnodes
                     no = sort(nodes[k,:])
                     if all(positions.==no)
@@ -170,18 +186,17 @@ function FindElementsFaces(etype, ne, types, connect, tags, nodesgroup)
 
 end
 
-#=
 
-using Lgmsh
+function Test_()
 
-nn, coord, ne, types, connect, tags = Readmesh("geo/daniele.msh",[3])
+    nn, coord, ne, types, connect, tags = Readmesh("geo/daniele.msh",[3])
 
-nodes = Readnodesgroup("geo/daniele.msh","Open")
+    nodes = Readnodesgroup("geo/daniele.msh","Open")
 
-include("src/aux_import.jl")
+    elefaces,faces = FindElementsFaces(3,ne,types,connect,nodes)
 
-FindElementsFaces(3,ne,types,connect,tags,nodes)
+    eleedges,edges = FindElementsEdges(3,ne,types,connect,nodes)
 
-FindElementsEdges(3,ne,types,connect,tags,nodes)
+    return elefaces, faces, eleedges, edges
 
-=#
+end

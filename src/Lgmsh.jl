@@ -23,6 +23,10 @@ module Lgmsh
     # Definitions with the number of nodes
     # of each element type (gmsh)
     export Lgmsh_nodemap
+    export Lgmsh_nodesfaces
+    export Lgmsh_nodesedges
+    export Lgmsh_listnodesedges
+    export Lgmsh_listnodesfaces
 
     # Post-processing
     export Lgmsh_export_init
