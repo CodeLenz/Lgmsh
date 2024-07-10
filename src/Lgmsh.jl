@@ -13,6 +13,7 @@ module Lgmsh
 
     # Pre-processing
     include("import.jl")
+    include("aux_import.jl")
 
     # utilities
     include("readmesh.jl")
@@ -48,6 +49,9 @@ module Lgmsh
     export Readmesh
     export Readelementsgroup
     export Readnodesgroup
+ 
+    # Aux import
+    export Vector_match, FindElementsEdges, FindElementsFaces
 
     # Format
     export Arraytostring, Stringtoarray

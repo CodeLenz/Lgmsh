@@ -189,14 +189,15 @@ end
 
 function Test_()
 
-    nn, coord, ne, types, connect, tags = Readmesh("geo/daniele.msh",[3])
+        nn, coord, ne, types, connect, tags = Readmesh("geo/daniele.msh",[3])
 
-    nodes = Readnodesgroup("geo/daniele.msh","Open")
+        nodes = Readnodesgroup("geo/daniele.msh","Open")
 
-    elefaces,faces = FindElementsFaces(3,ne,types,connect,nodes)
+        elefaces,faces = FindElementsFaces(3,ne,types,connect,nodes)
 
-    eleedges,edges = FindElementsEdges(3,ne,types,connect,nodes)
+        eleedges,edges = FindElementsEdges(3,ne,types,connect,nodes)
 
     return elefaces, faces, eleedges, edges
 
 end
+
