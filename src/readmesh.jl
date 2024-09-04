@@ -24,7 +24,7 @@ function Readmesh(filename::String, elist::Vector{Int})
 
         # basic test
         if ne==0
-           error("There are no elements of types $(elist) in this mesh")
+            error("There are no elements of types $(elist) in this mesh")
         end
 
         # Allocate the array of connectivities
@@ -132,22 +132,22 @@ function Readelementsgroup(filename::String,group::String,tags::Dict{Int,Int})
         # Loop over pairs
         for pair in V
 
-        # Get the nodes
-        etypes,etags = Lgmsh_import_elements_tuple(filename,pair[1],pair[2])
+            # Get the nodes
+            etypes,etags = Lgmsh_import_elements_tuple(filename,pair[1],pair[2])
 
-        # We do not care with the element type 
-        for i=1:length(etypes) 
+            # We do not care with the element type 
+            for i=1:length(etypes) 
 
-            # Element tags
-            inttags = Int.(etags[i])
+                # Element tags
+                inttags = Int.(etags[i])
 
-            # Convert tags using the dictionary
-            conv = [tags[i] for i in inttags]
+                # Convert tags using the dictionary
+                conv = [tags[i] for i in inttags]
 
-            # Append
-            list = vcat(list,conv)
+                # Append
+                list = vcat(list,conv)
 
-        end #i
+            end #i
 
         end
 
