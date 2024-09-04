@@ -57,7 +57,7 @@ function Lgmsh_listnodesfaces()
     # Type 4
     nodesfaces[4] = [1 2 3 ;
                      1 2 4 ; 
-                     3 3 4 ;
+                     2 3 4 ;
                      1 3 4 ]
 
     # Type 5
