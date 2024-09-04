@@ -172,16 +172,10 @@ function FindElementsFaces(etype, ne, types, connect, nodesgroup)
                     no = sort(nodes[k,:])
                     if all(positions.==no)
                        push!(list_faces,k)
-                       flag_ok = true
                        break
                     end
                 end #k
 
-                # Check for element without face
-                if !flag_ok
-                   println("Cuidado...elemento $i com nós $(positions) não retornou uma face") 
-                end
-            
             end #if
 
         end # if 
