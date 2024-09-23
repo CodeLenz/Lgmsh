@@ -162,7 +162,7 @@ function FindElementsFaces(etype, ne, types, connect, nodesgroup)
             sort!(positions) 
 
             # Check if it is compatible with nE
-            if length(positions)==nE
+            if length(positions)>=nE
 
                 # Store element
                 push!(list_elements,i)
