@@ -141,7 +141,7 @@ function FindElementsFaces(etype, ne, types, connect, nodesgroup)
     # List of faces
     list_faces = Int[]
 
-    # Number of nodes per edge of - etype - 
+    # Number of nodes per face of - etype - 
     nE = Lgmsh_nodesfaces()[etype]
 
     # Nodes at each face (in order)
