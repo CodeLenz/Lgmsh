@@ -80,18 +80,18 @@ function Lgmsh_listnodesfaces()
 
 
     # Type 6
-    nodesfaces[6] = [1 2 3  ;
-                     4 5 6  ;
+    nodesfaces[6] = [1 2 3 0 ;
+                     4 5 6 0 ;
                      1 2 5 4 ;
                      2 3 6 5 ;
                      1 3 6 4 ]
                 
     # Type 7
-    nodesfaces[7] = [1 2 3 4 ;
-                     1 2 5 ;
-                     2 3 5;
-                     3 4 5 ;
-                     4 1 4]
+    nodesfaces[7] = [1 2 3 4;
+                     1 2 5 0;
+                     2 3 5 0;
+                     3 4 5 0;
+                     4 1 4 0]
 
    
     # Return the dictionary
