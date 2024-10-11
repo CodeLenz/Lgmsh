@@ -86,6 +86,8 @@ end
 #
 function Lgmsh_import_etypes(filename::String)
 
+ element_types = Int64[]
+
 # To avoid printing gmsh output
 redirect_stdout(open(tempname(), "w")) do
 
@@ -111,11 +113,9 @@ redirect_stdout(open(tempname(), "w")) do
     # Finalize gmsh
     gmsh.finalize()
 
-end
-
     # Return it
     return element_types
-
+end
 end
 
 
@@ -221,10 +221,11 @@ redirect_stdout(open(tempname(), "w")) do
     # Finalize gmsh
     gmsh.finalize()
 
-end
-
     # Return information for this type of element
     return ne_type, number, connect
+
+
+end
 
 end
 
@@ -265,12 +266,12 @@ redirect_stdout(open(tempname(), "w")) do
     # Finalize gmsh
     gmsh.finalize()
 
-end
-
     # Return a vector with tuples (dim,tag)
     # and a vector with the strings associated
     # to each physical group
     return pgroups, names
+
+end
 
 end
 
@@ -301,10 +302,10 @@ redirect_stdout(open(tempname(), "w")) do
     # Finalize gmsh
     gmsh.finalize()
 
-end
 
     # Return entities
     return entities
+end
 
 end
 
@@ -348,9 +349,9 @@ function Lgmsh_import_elements_tuple(filename::String,dim,tag)
     # Finalize gmsh
     gmsh.finalize()
 
-    end
-
     return  elementTypes, elementTags
+
+end
 
 end
 
@@ -392,10 +393,10 @@ redirect_stdout(open(tempname(), "w")) do
     # Finalize gmsh
     gmsh.finalize()
     
-end
-
     return Int.(nodetags)
     
+end
+
 end
 
 
@@ -433,9 +434,9 @@ redirect_stdout(open(tempname(), "w")) do
     # Finalize gmsh
     gmsh.finalize()
      
-end
-
     return Int.(tags)
      
+end
+
 end
   
