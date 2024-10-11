@@ -28,8 +28,6 @@
 #
 function Lgmsh_import_coordinates(filename::String)
 
-# To avoid printing gmsh output
-redirect_stdout(open(tempname(), "w")) do
 
     # Initialize gmsh (C library)
     gmsh.initialize()
@@ -78,18 +76,11 @@ redirect_stdout(open(tempname(), "w")) do
 
 end
 
-end
-
 
 #
 # Return a list with element types in the mesh
 #
 function Lgmsh_import_etypes(filename::String)
-
- element_types = Int64[]
-
-# To avoid printing gmsh output
-redirect_stdout(open(tempname(), "w")) do
 
     # Initialize gmsh (C library)
     gmsh.initialize()
@@ -115,7 +106,7 @@ redirect_stdout(open(tempname(), "w")) do
 
     # Return it
     return element_types
-end
+
 end
 
 
@@ -149,8 +140,6 @@ end
 #
 function Lgmsh_import_element_by_type(filename::String,type,flag_error=true)
 
-# To avoid printing gmsh output
-redirect_stdout(open(tempname(), "w")) do
 
     # Initialize gmsh (C library)
     gmsh.initialize()
@@ -224,9 +213,6 @@ redirect_stdout(open(tempname(), "w")) do
     # Return information for this type of element
     return ne_type, number, connect
 
-
-end
-
 end
 
 
@@ -234,9 +220,6 @@ end
 # Return Physical_groups dimensions, tags and names
 #
 function Lgmsh_import_physical_groups(filename::String)
-
-# To avoid printing gmsh output
-redirect_stdout(open(tempname(), "w")) do
 
     # Initialize gmsh (C library)
     gmsh.initialize()
@@ -273,17 +256,12 @@ redirect_stdout(open(tempname(), "w")) do
 
 end
 
-end
-
 
 
 #
 # Return entities associated to a given NAME of a physical group
 #
 function Lgmsh_import_entities_physical_group(filename::String,group::String)
-
-# To avoid printing gmsh output
-redirect_stdout(open(tempname(), "w")) do
 
     # Initialize gmsh (C library)
     gmsh.initialize()
@@ -305,7 +283,6 @@ redirect_stdout(open(tempname(), "w")) do
 
     # Return entities
     return entities
-end
 
 end
 
@@ -327,9 +304,6 @@ end
 # concatenated: [e1n1, e1n2, ..., e1nN, e2n1, ...].
 #
 function Lgmsh_import_elements_tuple(filename::String,dim,tag)
-
-    # To avoid printing gmsh output
-    redirect_stdout(open(tempname(), "w")) do
 
     # Initialize gmsh (C library)
     gmsh.initialize()
@@ -353,8 +327,6 @@ function Lgmsh_import_elements_tuple(filename::String,dim,tag)
 
 end
 
-end
-
 #
 # Return nodes for (dim,tag)
 #
@@ -372,9 +344,6 @@ end
 # compute their parametric coordinates).
 
 function Lgmsh_import_nodes_tuple(filename::String,dim,tag)
-
-# To avoid printing gmsh output
-redirect_stdout(open(tempname(), "w")) do
 
     # Initialize gmsh (C library)
     gmsh.initialize()
@@ -394,8 +363,6 @@ redirect_stdout(open(tempname(), "w")) do
     gmsh.finalize()
     
     return Int.(nodetags)
-    
-end
 
 end
 
@@ -413,9 +380,6 @@ end
 # - `coord`: vector of doubles
 #
 function Lgmsh_import_nodes_elems_physical_group(filename::String, dim, tag)
-
-# To avoid printing gmsh output
-redirect_stdout(open(tempname(), "w")) do
 
     # Initialize gmsh (C library)
     gmsh.initialize()
@@ -435,8 +399,6 @@ redirect_stdout(open(tempname(), "w")) do
     gmsh.finalize()
      
     return Int.(tags)
-     
-end
 
 end
   
