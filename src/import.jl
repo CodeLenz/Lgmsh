@@ -73,10 +73,10 @@ redirect_stdout(open(tempname(), "w")) do
     # Finalize gmsh
     gmsh.finalize()
 
-end
-
     # Return nodal data
     return nn, node_numbers, coord
+
+end
 
 end
 
