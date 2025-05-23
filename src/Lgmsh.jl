@@ -21,6 +21,9 @@ module Lgmsh
     # Format 
     include("format.jl")
 
+    # Interfaces to other programas
+    include("interfaces/Parsemsh_FEM_Solid.jl")
+
     # Definitions with the number of nodes
     # of each element type (gmsh)
     export Lgmsh_nodemap
@@ -55,5 +58,8 @@ module Lgmsh
 
     # Format
     export Arraytostring, Stringtoarray
+
+    # Interfaces
+    export Parsemsh_FEM_Solid
 
 end
