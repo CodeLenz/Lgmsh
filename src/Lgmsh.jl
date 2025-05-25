@@ -60,6 +60,7 @@ module Lgmsh
     export Arraytostring, Stringtoarray
 
     # Interfaces
+    export Mesh_FEM_Solid
     export Parsemsh_FEM_Solid
 
 end
