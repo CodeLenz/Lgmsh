@@ -26,7 +26,7 @@ struct Mesh_FEM_Solid
     #                       .... ]
     coord::Matrix{Float64}
 
-    # conectividades  [tipo   id    material  no1, no2 .... non ;
+    # conectividades  [tipo  material  no1, no2 .... non ;
     #                                ....                       ]
     connect::Matrix{Int64}
 
