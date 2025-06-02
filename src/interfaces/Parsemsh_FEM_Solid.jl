@@ -79,22 +79,21 @@ end
 #
 # Forças concentradas
 #
-#         Fc, dir, valor  
+#         Fc, dir, valor  (N)
 #
 # Definição de forças de corpo 
 #
-#          Fb, dir , valor
+#          Fb, dir , valor (N/m^3)
 # 
-# Forças de contorno 
+# Forças de contorno  (direções locais 1(n), 2(t1) e 3(t2))
 #
-#          Ft, valor_n, valor_t1, valor_t2 (N/m^2) 
+#          Ft, dir, valor (N/m^2) 
 #
 # Apoios
 #
-#          U, gl, valor 
+#          U, dir, valor  (m)
 #
 # 
-# Dados/Formato de saída
 #
 
 #
@@ -270,7 +269,7 @@ function Parsemsh_FEM_Solid(meshfile::String,verbose=false)
 
 
       #
-      #  Ft, valor_n, valor_t1, valor_t2 (N/m^2)  -> mapeia para faces/arestas de elementos
+      #  Ft, dir, valor (N/m^2)  -> mapeia para faces/arestas de elementos
       #
       elseif  occursin("Ft",st[1])
 
@@ -278,9 +277,8 @@ function Parsemsh_FEM_Solid(meshfile::String,verbose=false)
             empty!(localD_forcas_contorno)
 
             # Valor
-            localD_forcas_contorno["normal"] = parse(Float64,st[2])
-            localD_forcas_contorno["tan1"] = parse(Float64,st[3])
-            localD_forcas_contorno["tan2"] = parse(Float64,st[4])
+            localD_forcas_contorno["dir"] = parse(Float64,st[2])
+            localD_forcas_contorno["val"] = parse(Float64,st[2])
             
             # Encontra os nós 
             nodes_forcas_contorno = Lgmsh.Readnodesgroup(meshfile,name)
@@ -477,8 +475,10 @@ function Parsemsh_FEM_Solid(meshfile::String,verbose=false)
     end #f 
 
     # Com isso, podemos alocar a matriz de saída 
-    # ele face vn vt1 vt2
-    FT = zeros(nft,5)
+    #
+    # ele face dir val
+    #
+    FT = zeros(nft,4)
 
     # Novo loop pelas informações de f
     ini = 1
@@ -496,22 +496,18 @@ function Parsemsh_FEM_Solid(meshfile::String,verbose=false)
         # Linha final da informação
         fim = ini+ne_t-1
 
-        # valor na direção normal
-        valn = f["normal"]
+        # Direção 
+        dir = f["dir"]
 
-        # valor na direção tangencial1
-        valt1 = f["tan1"]
-
-        # valor na direção tangencial2
-        valt2 = f["tan2"]
+        # valor
+        val = f["val"]
 
 
         # Posiciona na matriz FT
         FT[ini:fim,1] .= elementos
         FT[ini:fim,2] .= arestas
-        FT[ini:fim,3] .= valn
-        FT[ini:fim,4] .= valt1
-        FT[ini:fim,5] .= valt2
+        FT[ini:fim,3] .= dir
+        FT[ini:fim,4] .= val
         
 
         # Realoca a posição inicial

@@ -37,9 +37,8 @@ Physical Surface("Material,aço,1,210E9,0.3,7850.0") = {1};
 // = \rho * g = -7850*10 [N/m^3] 
 Physical Surface("Fb,2,-78500") = {1};
 
-// Aplica uma "pressão" normal na face 2, direção normal
-// normal, tangencial1, tangencial2
-Physical Curve("Ft,1E1,0.0,0.0") = {2};
+// Aplica uma "pressão" normal (1) de 10.0 na linha 2
+Physical Curve("Ft,1,1E1") = {2};
 
 // Força concentrada no canto superior direito 
 Physical Point("Fc,2,100.0") = {3};
