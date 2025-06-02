@@ -278,7 +278,7 @@ function Parsemsh_FEM_Solid(meshfile::String,verbose=false)
 
             # Valor
             localD_forcas_contorno["dir"] = parse(Float64,st[2])
-            localD_forcas_contorno["val"] = parse(Float64,st[2])
+            localD_forcas_contorno["val"] = parse(Float64,st[3])
             
             # Encontra os nós 
             nodes_forcas_contorno = Lgmsh.Readnodesgroup(meshfile,name)
@@ -314,7 +314,7 @@ function Parsemsh_FEM_Solid(meshfile::String,verbose=false)
 
         # dir e valor
         localD_apoios["dir"]    = parse(Float64,st[2])
-        localD_apoios["val"]  = parse(Float64,st[3])
+        localD_apoios["val"]    = parse(Float64,st[3])
         
         # Encontra os nós
         nodes_apoios = Lgmsh.Readnodesgroup(meshfile,name)
