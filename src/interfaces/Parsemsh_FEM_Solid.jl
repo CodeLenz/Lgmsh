@@ -520,13 +520,14 @@ function Parsemsh_FEM_Solid(meshfile::String,verbose=false)
     #
     # Começa calculando o número de informações (nós) somando todas as entradas
     # em apoios
+
+    if verbose
+        @show length(apoios)
+    end
+
     nap = 0
     for f in apoios
-        nnnn = length(f["nodes"])
-        if verbose 
-            @show nnnn
-        end
-        nap += nnnn #length(f["nodes"])
+        nap += length(f["nodes"])
     end #f 
 
     # Com isso, podemos alocar a matriz de saída 
@@ -543,14 +544,21 @@ function Parsemsh_FEM_Solid(meshfile::String,verbose=false)
         # Número de nós 
         nn_ap = length(nos)
 
+
         # Linha final da informação
         fim = ini+nn_ap-1
+
 
         # Direção 
         dir = f["dir"]
 
         # valor 
         val = f["val"]
+
+
+        if verbose
+            @show nn_ap, ini, fim, dir, val
+        end
 
         # Posiciona na matriz AP
         AP[ini:fim,1] .= nos
