@@ -522,7 +522,11 @@ function Parsemsh_FEM_Solid(meshfile::String,verbose=false)
     # em apoios
     nap = 0
     for f in apoios
-        nap += length(f["nodes"])
+        nnnn = length(f["nodes"])
+        if verbose 
+            @show nnnn
+        end
+        nap += nnnn #length(f["nodes"])
     end #f 
 
     # Com isso, podemos alocar a matriz de saída 
