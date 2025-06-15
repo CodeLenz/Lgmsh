@@ -417,7 +417,7 @@ function Parsemsh_FEM_Solid(meshfile::String,verbose=false)
         FC[ini:fim,3] .= val
 
         # Realoca a posição inicial
-        ini = ini + fim
+        ini =  fim
 
     end #f
    
@@ -460,7 +460,7 @@ function Parsemsh_FEM_Solid(meshfile::String,verbose=false)
         FB[ini:fim,3] .= val
 
         # Realoca a posição inicial
-        ini = ini + fim
+        ini =  fim
 
     end #f
    
@@ -511,7 +511,7 @@ function Parsemsh_FEM_Solid(meshfile::String,verbose=false)
         
 
         # Realoca a posição inicial
-        ini = ini + fim
+        ini = fim
 
     end #f
 
@@ -520,10 +520,6 @@ function Parsemsh_FEM_Solid(meshfile::String,verbose=false)
     #
     # Começa calculando o número de informações (nós) somando todas as entradas
     # em apoios
-
-    if verbose
-        @show length(apoios)
-    end
 
     nap = 0
     for f in apoios
@@ -544,10 +540,8 @@ function Parsemsh_FEM_Solid(meshfile::String,verbose=false)
         # Número de nós 
         nn_ap = length(nos)
 
-
         # Linha final da informação
         fim = ini+nn_ap-1
-
 
         # Direção 
         dir = f["dir"]
@@ -555,18 +549,13 @@ function Parsemsh_FEM_Solid(meshfile::String,verbose=false)
         # valor 
         val = f["val"]
 
-
-        if verbose
-            @show nn_ap, ini, fim, dir, val
-        end
-
         # Posiciona na matriz AP
         AP[ini:fim,1] .= nos
         AP[ini:fim,2] .= dir
         AP[ini:fim,3] .= val
 
         # Realoca a posição inicial
-        ini = ini + fim
+        ini = fim
 
     end #f
 
