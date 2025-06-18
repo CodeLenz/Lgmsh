@@ -417,7 +417,7 @@ function Parsemsh_FEM_Solid(meshfile::String,verbose=false)
         FC[ini:fim,3] .= val
 
         # Realoca a posição inicial
-        ini =  fim
+        ini = fim
 
     end #f
    
