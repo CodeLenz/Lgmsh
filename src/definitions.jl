@@ -73,7 +73,7 @@ Lgmsh_nodemap() = [2;3;4;4;8;6;5;3;6;9;10;27;18;14;1;8;20;15;13;9;10;12;15;15;21
 ############## TODO - IMPROVE THE FOLLOWING VECTORS/ARRAYS ##################
 
 # Map number of nodes in the edges of each element
-Lgmsh_nodesedges() = [1;2;2;2;2]
+Lgmsh_nodesedges() = [1;2;2;2;2;2;2;1;3;3]
 
 # Nodes of each edge of each element type
 function Lgmsh_listnodesedges() 
@@ -108,7 +108,10 @@ function Lgmsh_listnodesedges()
     nodesedges[7] = [1 2 ; 2 3 ; 3 4 ; 1 4 ;
                      1 5 ; 2 5 ; 3 5 ; 4 5 ]
  
-   
+    # Type 10
+    nodesedges[10] =  [1 5 2 ; 2 6 3 ; 3 7 4 ; 1 8 4] 
+
+
     # Return the dictionary
     return nodesedges
 
@@ -116,7 +119,7 @@ end
 
 
 # Minimum number of nodes per face      #### 
-Lgmsh_nodesfaces() = [1;3;4;3;4;3;3]
+Lgmsh_nodesfaces() = [1;3;4;3;4;3;3;0;0;9]
 
 # Map number of nodes in faces of each element
 function Lgmsh_listnodesfaces() 

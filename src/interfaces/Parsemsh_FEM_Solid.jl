@@ -108,7 +108,7 @@ function Parsemsh_FEM_Solid(meshfile::String,verbose=false)
     # que a malha é 2D, pois o gmsh também gera esses elementos
     # para malhas 3D.
     dimensao = 2
-    et = [2,3]
+    et = [2,3,10]
     if (4 in elist) || (5 in elist) || (7 in elist)
         dimensao = 3
         et = [4,5,7]
