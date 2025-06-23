@@ -29,7 +29,7 @@ function Readmesh(filename::String, elist::Vector{Int})
             # and also set the maximum number of 
             # nodes for all elements in this mesh
             if ne_e > 0 
-               nnmax = max(nmax,npe[e])
+               nnmax = max(nnmax,npe[e])
             end
             
             
