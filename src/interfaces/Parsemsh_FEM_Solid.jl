@@ -543,8 +543,6 @@ function Parsemsh_FEM_Solid(meshfile::String,verbose=false)
         # Linha final da informação
         fim = ini+nn_ap-1
 
-        @show ini,nn_ap,fim 
-
         # Direção 
         dir = f["dir"]
 
