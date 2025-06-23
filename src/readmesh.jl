@@ -13,13 +13,26 @@ function Readmesh(filename::String, elist::Vector{Int})
         npe = Lgmsh_nodemap()
 
         # Maximum number of nodes per element in this mesh
-        nnmax = maximum(npe[elist])
+        nnmax = 0 #maximum(npe[elist])
 
         # Something very, very stupid
         ne = 0
         for e in elist
+
+            # Number of elements of this type in the mesh
             ne_e, _ = Lgmsh_import_element_by_type(filename,e,false)
+
+            # If there are elements of this type in the mesh, we add
+            # to the total number 
             ne += ne_e
+
+            # and also set the maximum number of 
+            # nodes for all elements in this mesh
+            if ne_e > 0 
+               nnmax = max(nmax,npe[e])
+            end
+            
+            
         end
 
         # basic test
