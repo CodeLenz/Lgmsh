@@ -118,11 +118,11 @@ function Parsemsh_FEM_Solid(meshfile::String,verbose=false)
         println("Solucionando um problema de dimensão $dimensao")
     end
 
-    # Maior número de nós entre todos os elementos da malha 
-    nmax_nodes = maximum(Lgmsh_nodemap()[et])
-
     # Leitura da malha
     nn, coord, ne, etypes, connect, etags = Readmesh(meshfile,et)
+
+    # Maior número de nós entre todos os elementos da malha 
+    nmax_nodes = size(connect,2)
 
     # Le todos os grupos físicos do arquivo 
     pgroups, pgnames = Lgmsh_import_physical_groups(meshfile)
