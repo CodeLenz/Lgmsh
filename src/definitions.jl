@@ -111,6 +111,9 @@ function Lgmsh_listnodesedges()
     # Type 10
     nodesedges[10] =  [1 5 2 ; 2 6 3 ; 3 7 4 ; 1 8 4] 
 
+    # Type 16
+    nodesedges[16] =  [1 5 2 ; 2 6 3 ; 3 7 4 ; 1 8 4] 
+
 
     # Return the dictionary
     return nodesedges
@@ -119,7 +122,7 @@ end
 
 
 # Minimum number of nodes per face      #### 
-Lgmsh_nodesfaces() = [1;3;4;3;4;3;3;0;0;9]
+Lgmsh_nodesfaces() = [1;3;4;3;4;3;3;0;0;9;0;0;0;0;0;8]
 
 # Map number of nodes in faces of each element
 function Lgmsh_listnodesfaces() 

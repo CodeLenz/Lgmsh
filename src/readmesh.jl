@@ -1,5 +1,5 @@
 #
-# Read a .msh file and look for 2D (plane) elements of a given list
+# Read a .msh file and look for  elements of a given list
 #
 function Readmesh(filename::String, elist::Vector{Int})
 
