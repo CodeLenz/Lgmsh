@@ -73,7 +73,7 @@ Lgmsh_nodemap() = [2;3;4;4;8;6;5;3;6;9;10;27;18;14;1;8;20;15;13;9;10;12;15;15;21
 ############## TODO - IMPROVE THE FOLLOWING VECTORS/ARRAYS ##################
 
 # Map number of nodes in the edges of each element
-Lgmsh_nodesedges() = [1;2;2;2;2;2;2;1;3;3]
+Lgmsh_nodesedges() = [1;2;2;2;2;2;2;1;3;3;0;0;0;0;0;3]
 
 # Nodes of each edge of each element type
 function Lgmsh_listnodesedges() 
