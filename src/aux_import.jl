@@ -189,7 +189,7 @@ end
 
 function Test_()
 
-        nn, coord, ne, types, connect, tags = Readmesh("geo/daniele.msh",[3])
+        nn, coord, ne, types, connect, centroids, tags = Readmesh("geo/daniele.msh",[3])
 
         nodes = Readnodesgroup("geo/daniele.msh","Open")
 

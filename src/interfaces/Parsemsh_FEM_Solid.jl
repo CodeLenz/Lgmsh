@@ -63,6 +63,11 @@ struct Mesh_FEM_Solid
     #
     AP::Matrix{Float64}
 
+    #
+    # centroides  ne × 3
+    # 
+    centroids::Matrix{Float64}
+
 end
 
 #
@@ -119,7 +124,7 @@ function Parsemsh_FEM_Solid(meshfile::String,verbose=false)
     end
 
     # Leitura da malha
-    nn, coord, ne, etypes, connect, etags = Readmesh(meshfile,et)
+    nn, coord, ne, etypes, connect, centroids, etags = Readmesh(meshfile,et)
 
     # Maior número de nós entre todos os elementos da malha 
     nmax_nodes = size(connect,2)
@@ -561,6 +566,6 @@ function Parsemsh_FEM_Solid(meshfile::String,verbose=false)
 
 
     # Retorna os dados 
-    return Mesh_FEM_Solid(nn, ne, nfc, nfb, nft, nap, coord,  connect2, materiais2,  FC,  FB,  FT,  AP)
+    return Mesh_FEM_Solid(nn, ne, nfc, nfb, nft, nap, coord,  connect2, materiais2,  FC,  FB,  FT,  AP, centroids)
 
 end

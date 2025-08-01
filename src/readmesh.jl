@@ -46,6 +46,9 @@ function Readmesh(filename::String, elist::Vector{Int})
         # Allocate the array of types
         types = zeros(Int64,ne)
 
+        # Allocate the array of centroids
+        centroids = zeros(ne,3)
+
         #
         # Dictionary with the original tag and the new
         # element number
@@ -60,6 +63,9 @@ function Readmesh(filename::String, elist::Vector{Int})
             # Recover data from each type of element
             ne_e, tags_e, connect_e = Lgmsh_import_element_by_type(filename,e,false)
 
+            # Recover the centroids for this element type
+            cent =  Lgmsh_import_centroids(filename,e)
+
             # Skip if ne_e is zero (no element of this type)
             if ne_e > 0 
 
@@ -71,6 +77,9 @@ function Readmesh(filename::String, elist::Vector{Int})
 
                 # Append types
                 types[offset+1:offset+ne_e] .= e 
+
+                # Centroids
+                centroids[offset+1:offset+ne_e] .= cent
 
                 # Silly dict build
                 for i=1:ne_e
@@ -88,7 +97,7 @@ function Readmesh(filename::String, elist::Vector{Int})
         end
 
         # Return mesh data
-        return nn, coord, ne, types, connect, tags
+        return nn, coord, ne, types, connect, centroids, tags
 
     end
 
