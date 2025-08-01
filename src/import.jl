@@ -427,6 +427,9 @@ function Lgmsh_import_centroids(filename::String,etype)
         # Centroids
         cent = gmsh.model.mesh.getBarycenters(etype, -1, false, true)    
 
+        # Finalize gmsh
+        gmsh.finalize()
+                
         # Organize from a single vector to a matrix of ne × 3
         n = Int(length(cent)/3)
 
@@ -437,7 +440,7 @@ function Lgmsh_import_centroids(filename::String,etype)
                 centroids[i,j] = cent[3(i-1)+j]
             end
         end
-
+        
         # Return the centroids
         return centroids
     

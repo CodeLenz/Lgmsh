@@ -79,7 +79,7 @@ function Readmesh(filename::String, elist::Vector{Int})
                 types[offset+1:offset+ne_e] .= e 
 
                 # Centroids
-                centroids[offset+1:offset+ne_e] .= cent
+                centroids[offset+1:offset+ne_e,:] .= cent
 
                 # Silly dict build
                 for i=1:ne_e
