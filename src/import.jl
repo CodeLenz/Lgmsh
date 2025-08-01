@@ -22,6 +22,8 @@
 #
 #   nodes = Lgmsh_import_nodes_elem_physical_group(filename::String, dim, tag)
 #
+#   centroids = Lgmsh_import_centroids(filename::String,etype)
+#   
 
 #
 # Import nodes from mesh file
@@ -402,3 +404,41 @@ function Lgmsh_import_nodes_elems_physical_group(filename::String, dim, tag)
 
 end
   
+
+#
+# Recover the centroids of a given element type
+#
+# nn,ne,coord,etypes,connect,etags = Readmesh("geo/cantilever.msh",[3])
+# centroids = Lgmsh_import_centroids("geo/cantilever.msh",3)
+#
+function Lgmsh_import_centroids(filename::String,etype)
+
+        # Initialize gmsh (C library)
+        gmsh.initialize()
+
+         # Open file
+        try
+            gmsh.open(filename) 
+        catch
+            gmsh.finalize()
+            error("file $filename does not exist")
+        end
+    
+        # Centroids
+        cent = gmsh.model.mesh.getBarycenters(etype, -1, false, true)    
+
+        # Organize from a single vector to a matrix of ne × 3
+        n = Int(length(cent)/3)
+
+        # centroids
+        centroids = zeros(n,3)
+        for i=1:n
+            for j=1:3
+                centroids[i,j] = cent[3(i-1)+j]
+            end
+        end
+
+        # Return the centroids
+        return centroids
+    
+end

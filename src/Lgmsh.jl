@@ -47,6 +47,7 @@ module Lgmsh
     export Lgmsh_import_elements_tuple
     export Lgmsh_import_nodes_tuple
     export Lgmsh_import_nodes_elem_physical_group
+    export Lgmsh_import_centroids
     
     # Utilities
     export Readmesh
