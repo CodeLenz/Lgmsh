@@ -54,6 +54,9 @@ coord = [0.0 0.0 ;
 etype = [3;2]         
 
 # Connectivities. 
+
+ne = 2 
+
 # Observe that the rectangle has 4 nodes and the triangle has 3. Thus,
 # we must insert a zero in the last row for this element.
 connect = [1 2 3 4 ;
@@ -154,6 +157,40 @@ vector = rand(dim*nn)
 
 # Create view
 Lgmsh_export_nodal_vector(filename,vector,dim,"Nodal vector 3D")           
+```
+
+The same logic applies to export vector views to element data, assuming that there is one vector per element. 
+
+```julia
+Lgmsh_export_element_vector(filename::String,vector::Vector,dim::Int,viewname::String,time=0.0)
+```
+where
+
+$vector$: is a $dim*ne \times 1$ vector containing the vector field. If $dim=2$, each pair of values are assigned to each element and if $dim=3$, each 3-tuple is assigned to each element. It is assumed that the information is from the first to the last element, in ascending order.
+
+Example
+
+```julia
+
+#                             2D
+# Dimension
+dim = 2
+
+# Two dimensional vector for each element
+vector = rand(dim*ne) 
+
+# Create view
+Lgmsh_export_element_vector(filename,vector,dim,"Element vector 2D")           
+
+#                            3D
+# Dimension
+dim = 3
+
+# Three dimensional vector for each node
+vector = rand(dim*ne) 
+
+# Create view
+Lgmsh_export_element_vector(filename,vector,dim,"Element vector 3D")           
 ```
 
 # Pre-Processing

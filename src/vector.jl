@@ -55,3 +55,62 @@ function Lgmsh_export_nodal_vector(filename::String,vector::Vector,dim::Int,
     return true
 
 end
+
+
+"""
+Export a nodal vectorial view to gmsh
+
+    Lgmsh_export_element_vector(filename::String,vector::Vector,  
+                       dim::Int, viewname::String,time=0.0)
+
+    vector should be dim*ne where dim = 2 or 3 and nn is the
+    number of nodes.
+
+"""
+function Lgmsh_export_element_vector(filename::String,vector::Vector,dim::Int,
+                                     viewname::String,time=0.0)
+
+  
+    # Try to open the file
+    outp = try
+                open(filename,"a")
+    catch
+        error("ERROR::Lgmsh_export_element_vector:: Cannot open file $filename")
+    end
+
+    # Number of elements
+    ne = try
+        Int(length(vector)/dim)
+    catch
+        error("ERROR::Lgmsh_export_element_vector:: there is something wrong with the dimensions")
+    end
+
+    #
+    #
+    println(outp,"\$ElementData")
+    println(outp,"1")
+    println(outp,"\" $viewname\"")
+    println(outp,"1")
+    println(outp,time)
+    println(outp,"3")
+    println(outp,"0")
+    println(outp,"3")
+    println(outp,ne)
+    for ele=1:ne
+        pos1 = dim*(ele-1)+1; val1 = vector[pos1]
+        pos2 = dim*(ele-1)+2; val2 = vector[pos2]
+        val3 = 0.0
+        if dim==3
+            pos3 = dim*(ele-1)+3; val3 = vector[pos3]
+        end 
+        println(outp,ele," ",val1," ",val2," ",val3 )
+    end
+    println(outp,"\$EndElementData")
+
+    # close the file
+    close(outp)
+
+    # return true for testing
+    return true
+
+end

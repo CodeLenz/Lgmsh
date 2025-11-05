@@ -37,6 +37,7 @@ module Lgmsh
     export Lgmsh_export_nodal_scalar
     export Lgmsh_export_element_scalar
     export Lgmsh_export_nodal_vector
+    export Lgmsh_export_element_vector
     
     # Pre-processing
     export Lgmsh_import_coordinates
